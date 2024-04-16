@@ -4,5 +4,5 @@ import screensClasses.ScreenFunctions
 
 fun main() {
    val screen = ScreenFunctions()
-   screen.greetingMenu(archives = Archives(), notes = Notes())
+   screen.screenMain(archives = Archives(), notes = Notes())
 }

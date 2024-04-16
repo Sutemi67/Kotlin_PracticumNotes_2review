@@ -4,11 +4,7 @@ import java.util.Scanner
 
 class ScreenFunctions {
    
-   fun greetingMenu(archives: Archives, notes: Notes) {
-      screenMain(archives, notes)
-   }
-   
-   private fun screenMain(archives: Archives, notes: Notes) {
+   fun screenMain(archives: Archives, notes: Notes) {
       while (true) {
          var archiveCount = 0
          println("0. Создать архив")
@@ -29,7 +25,7 @@ class ScreenFunctions {
                
                in 1 until archiveCount + 1 -> {
                   val archiveKey = archives.keyGetterArchives(command.toInt())
-                  screenArchive(archives, notes, archiveKey)
+                  screenOfCurrentArchive(archives, notes, archiveKey)
                }
                
                archiveCount + 1 -> {
@@ -44,7 +40,7 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenArchive(archives: Archives, notes: Notes, key: String) {
+   private fun screenOfCurrentArchive(archives: Archives, notes: Notes, key: String) {
       while (true) {
          println("0. Создать заметку")
          var notesCount = 0
@@ -65,7 +61,7 @@ class ScreenFunctions {
                
                in 1..notesCount -> {
                   val noteKey = archives.archiveName[key]?.get(command.toInt() - 1)
-                  screenNote(notes, noteKey!!)
+                  screenWithNoteText(notes, noteKey!!)
                }
                
                notesCount + 1 -> {
@@ -80,7 +76,7 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenNote(notes: Notes, key: String) {
+   private fun screenWithNoteText(notes: Notes, key: String) {
       println("Текст заметки:\n \n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
       Scanner(System.`in`).nextLine()
    }
