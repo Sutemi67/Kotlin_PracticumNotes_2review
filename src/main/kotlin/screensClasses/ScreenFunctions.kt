@@ -56,9 +56,10 @@ class ScreenFunctions {
                notes.createNote(archives, key)
             }
             
-            in 1 until notesCount + 1 -> {
+            in 1 .. notesCount -> {
+               val a = archives.archiveName[key]?.get(command-1)
                val noteKey = notes.keyGetterNotes(command)
-               screenNote(notes, noteKey)
+               screenNote(notes, a!!)
             }
             
             notesCount + 1 -> {
@@ -73,13 +74,5 @@ class ScreenFunctions {
    private fun screenNote(notes: Notes, key: String) {
       println("Текст заметки:\n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
       Scanner(System.`in`).nextLine()
-   }
-   
-   private fun exitScreen(screenNumber: Int): Int {
-      return if (screenNumber - 1 != 0) {
-         screenNumber - 1
-      } else {
-         0
-      }
    }
 }
