@@ -18,19 +18,19 @@ class ScreenFunctions {
                println("$archiveCount. Архив $key")
             }
          }
-         println("${archiveCount+1}. Выход")
+         println("${archiveCount + 1}. Выход")
          
          when (val command = Scanner(System.`in`).nextLine().toInt()) {
             0 -> {
                archives.createArchive()
             }
             
-            in 1 until archiveCount+1 -> {
+            in 1 until archiveCount + 1 -> {
                val archiveKey = archives.keyGetterArchives(command)
-               screenArchive(notes, archiveKey)
+               screenArchive(archives, notes, archiveKey)
             }
             
-            archiveCount+1 -> {
+            archiveCount + 1 -> {
                return
             }
             
@@ -39,12 +39,12 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenArchive(notes: Notes, key:String) {
+   private fun screenArchive(archives: Archives, notes: Notes, key: String) {
       while (true) {
          println("0. Создать заметку")
          var notesCount = 0
-         if (notes.noteName.isNotEmpty()) {
-            for (note in notes.noteName.keys) {
+         if (archives.archiveName[key]?.isNotEmpty() == true) {
+            for (note in archives.archiveName[key]!!) {
                notesCount++
                println("${notesCount}. Заметка $note")
             }
@@ -53,15 +53,15 @@ class ScreenFunctions {
          
          when (val command = Scanner(System.`in`).nextLine().toInt()) {
             0 -> {
-               notes.createNote()
+               notes.createNote(archives, key)
             }
             
-            in 1 until notesCount+1 -> {
+            in 1 until notesCount + 1 -> {
                val noteKey = notes.keyGetterNotes(command)
                screenNote(notes, noteKey)
             }
             
-            notesCount+1 -> {
+            notesCount + 1 -> {
                return
             }
             
