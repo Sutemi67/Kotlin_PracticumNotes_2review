@@ -18,19 +18,19 @@ class ScreenFunctions {
                println("$archiveCount. Архив $key")
             }
          }
-         archiveCount++
-         println("$archiveCount. Выход")
+         println("${archiveCount+1}. Выход")
          
          when (val command = Scanner(System.`in`).nextLine().toInt()) {
             0 -> {
                archives.createArchive()
             }
             
-            in 1 until archiveCount -> {
-               screenArchive(archives, archives.keyGetterArray(command - 1), notes)
+            in 1 until archiveCount+1 -> {
+               val archiveKey = archives.keyGetterArchives(command)
+               screenArchive(notes, archiveKey)
             }
             
-            archiveCount -> {
+            archiveCount+1 -> {
                return
             }
             
@@ -39,7 +39,7 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenArchive(archives: Archives, key: String, notes: Notes) {
+   private fun screenArchive(notes: Notes, key:String) {
       while (true) {
          println("0. Создать заметку")
          var notesCount = 0
@@ -53,14 +53,15 @@ class ScreenFunctions {
          
          when (val command = Scanner(System.`in`).nextLine().toInt()) {
             0 -> {
-               notes.createNote(key)
+               notes.createNote()
             }
             
-            in 1 until notesCount -> {
-               screenNote(notes, command.toString())
+            in 1 until notesCount+1 -> {
+               val noteKey = notes.keyGetterNotes(command)
+               screenNote(notes, noteKey)
             }
             
-            notesCount -> {
+            notesCount+1 -> {
                return
             }
             
@@ -70,7 +71,7 @@ class ScreenFunctions {
    }
    
    private fun screenNote(notes: Notes, key: String) {
-      println("${notes.noteName[key]}")
+      println("Текст заметки:\n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
       Scanner(System.`in`).nextLine()
    }
    

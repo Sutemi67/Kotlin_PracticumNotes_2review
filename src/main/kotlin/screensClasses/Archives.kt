@@ -20,11 +20,11 @@ class Archives {
       }
    }
    
-   fun keyGetterArray(index: Int): String {
+   fun keyGetterArchives(index: Int): String {
       val keysArray: MutableList<String> = mutableListOf()
       for (keys in archiveName.keys) {
          keysArray.add(keys)
       }
-      return keysArray[index]
+      return keysArray[index-1]
    }
 }
