@@ -1,35 +1,84 @@
 package screensClasses
 
-class ScreenFunctions() {
+import java.util.Scanner
 
-    fun greetingMenu(archives: Archives, screenNumber: Int) {
-        var archiveCount = 0
-        when (screenNumber) {
-            1 -> {
-                println("0. Создать архив")
-                if (archives.archiveName.isNotEmpty()) {
-                    for (key in archives.archiveName.keys) {
-                        archiveCount++
-                        println("$archiveCount. Архив $key")
-                    }
-                }
-                archiveCount++
-                println("$archiveCount. Выход")
-                return
+class ScreenFunctions {
+   
+   fun greetingMenu(archives: Archives, notes: Notes) {
+      screenMain(archives, notes)
+   }
+   
+   private fun screenMain(archives: Archives, notes: Notes) {
+      while (true) {
+         var archiveCount = 0
+         println("0. Создать архив")
+         if (archives.archiveName.isNotEmpty()) {
+            for (key in archives.archiveName.keys) {
+               archiveCount++
+               println("$archiveCount. Архив $key")
             }
-
-            2 -> {
-                println("0. Создать заметку")
-                for (note in archives.archiveName.values) {
-                    val i = 0
-                    if (note.isNotEmpty()) {
-                        println("${i + 1}. Заметка $note")
-                    }
-                }
-                println("${archives.archiveName.values.size}. Выход")
+         }
+         archiveCount++
+         println("$archiveCount. Выход")
+         
+         when (val command = Scanner(System.`in`).nextLine().toInt()) {
+            0 -> {
+               archives.createArchive()
             }
-
-            3 -> println("")
-        }
-    }
+            
+            in 1 until archiveCount -> {
+               screenArchive(archives, archives.keyGetterArray(command - 1), notes)
+            }
+            
+            archiveCount -> {
+               return
+            }
+            
+            else -> println("Неизвестная команда")
+         }
+      }
+   }
+   
+   private fun screenArchive(archives: Archives, key: String, notes: Notes) {
+      while (true) {
+         println("0. Создать заметку")
+         var notesCount = 0
+         if (notes.noteName.isNotEmpty()) {
+            for (note in notes.noteName.keys) {
+               notesCount++
+               println("${notesCount}. Заметка $note")
+            }
+         }
+         println("${notesCount + 1}. Назад")
+         
+         when (val command = Scanner(System.`in`).nextLine().toInt()) {
+            0 -> {
+               notes.createNote(key)
+            }
+            
+            in 1 until notesCount -> {
+               screenNote(notes, command.toString())
+            }
+            
+            notesCount -> {
+               return
+            }
+            
+            else -> println("Неизвестная команда")
+         }
+      }
+   }
+   
+   private fun screenNote(notes: Notes, key: String) {
+      println("${notes.noteName[key]}")
+      Scanner(System.`in`).nextLine()
+   }
+   
+   private fun exitScreen(screenNumber: Int): Int {
+      return if (screenNumber - 1 != 0) {
+         screenNumber - 1
+      } else {
+         0
+      }
+   }
 }
