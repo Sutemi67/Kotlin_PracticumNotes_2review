@@ -71,16 +71,17 @@ class ScreenFunctions {
                notesCount + 1 -> {
                   return
                }
+               
                else -> println("Неизвестная команда")
             }
-         }else{
+         } else {
             println("Введите команду из предложенного списка:")
          }
       }
    }
-      
-      private fun screenNote(notes: Notes, key: String) {
-         println("Текст заметки:\n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
-         Scanner(System.`in`).nextLine()
-      }
+   
+   private fun screenNote(notes: Notes, key: String) {
+      println("Текст заметки:\n \n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
+      Scanner(System.`in`).nextLine()
    }
+}

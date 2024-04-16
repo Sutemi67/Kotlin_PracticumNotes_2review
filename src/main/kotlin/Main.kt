@@ -2,10 +2,7 @@ import screensClasses.Archives
 import screensClasses.Notes
 import screensClasses.ScreenFunctions
 
-fun main(args: Array<String>) {
+fun main() {
    val screen = ScreenFunctions()
-   val archives = Archives()
-   
-   
-   screen.greetingMenu(archives, notes = Notes())
+   screen.greetingMenu(archives = Archives(), notes = Notes())
 }

@@ -5,7 +5,7 @@ import java.util.Scanner
 class Notes {
    val noteName: MutableMap<String, String> = mutableMapOf()
    
-   fun createNote(archives: Archives, key:String) {
+   fun createNote(archives: Archives, key: String) {
       println("Введите название заметки")
       val input = Scanner(System.`in`).next()
       if (input == "") {
@@ -16,12 +16,5 @@ class Notes {
          archives.archiveName[key]!!.add(input)
          return
       }
-   }
-   fun keyGetterNotes(index: Int): String {
-      val keysArray: MutableList<String> = mutableListOf()
-      for (keys in noteName.keys) {
-         keysArray.add(keys)
-      }
-      return keysArray[index-1]
    }
 }
