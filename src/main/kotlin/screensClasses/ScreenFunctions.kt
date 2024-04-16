@@ -20,21 +20,26 @@ class ScreenFunctions {
          }
          println("${archiveCount + 1}. Выход")
          
-         when (val command = Scanner(System.`in`).nextLine().toInt()) {
-            0 -> {
-               archives.createArchive()
+         val command = readlnOrNull()
+         if (command?.toIntOrNull() != null) {
+            when (command.toInt()) {
+               0 -> {
+                  archives.createArchive()
+               }
+               
+               in 1 until archiveCount + 1 -> {
+                  val archiveKey = archives.keyGetterArchives(command.toInt())
+                  screenArchive(archives, notes, archiveKey)
+               }
+               
+               archiveCount + 1 -> {
+                  return
+               }
+               
+               else -> println("Неизвестная команда")
             }
-            
-            in 1 until archiveCount + 1 -> {
-               val archiveKey = archives.keyGetterArchives(command)
-               screenArchive(archives, notes, archiveKey)
-            }
-            
-            archiveCount + 1 -> {
-               return
-            }
-            
-            else -> println("Неизвестная команда")
+         } else {
+            println("Введите номер команды из предложенного списка:")
          }
       }
    }
@@ -51,28 +56,31 @@ class ScreenFunctions {
          }
          println("${notesCount + 1}. Назад")
          
-         when (val command = Scanner(System.`in`).nextLine().toInt()) {
-            0 -> {
-               notes.createNote(archives, key)
+         val command = readlnOrNull()
+         if (command?.toIntOrNull() != null) {
+            when (command.toInt()) {
+               0 -> {
+                  notes.createNote(archives, key)
+               }
+               
+               in 1..notesCount -> {
+                  val noteKey = archives.archiveName[key]?.get(command.toInt() - 1)
+                  screenNote(notes, noteKey!!)
+               }
+               
+               notesCount + 1 -> {
+                  return
+               }
+               else -> println("Неизвестная команда")
             }
-            
-            in 1 .. notesCount -> {
-               val a = archives.archiveName[key]?.get(command-1)
-               val noteKey = notes.keyGetterNotes(command)
-               screenNote(notes, a!!)
-            }
-            
-            notesCount + 1 -> {
-               return
-            }
-            
-            else -> println("Неизвестная команда")
+         }else{
+            println("Введите команду из предложенного списка:")
          }
       }
    }
-   
-   private fun screenNote(notes: Notes, key: String) {
-      println("Текст заметки:\n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
-      Scanner(System.`in`).nextLine()
+      
+      private fun screenNote(notes: Notes, key: String) {
+         println("Текст заметки:\n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
+         Scanner(System.`in`).nextLine()
+      }
    }
-}
