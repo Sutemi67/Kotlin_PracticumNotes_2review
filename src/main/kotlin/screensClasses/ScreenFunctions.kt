@@ -11,7 +11,7 @@ class ScreenFunctions {
          if (archives.archiveName.isNotEmpty()) {
             for (key in archives.archiveName.keys) {
                archiveCount++
-               println("$archiveCount. Архив $key")
+               println("$archiveCount. Архив '$key'")
             }
          }
          println("${archiveCount + 1}. Выход")
@@ -47,7 +47,7 @@ class ScreenFunctions {
          if (archives.archiveName[key]?.isNotEmpty() == true) {
             for (note in archives.archiveName[key]!!) {
                notesCount++
-               println("${notesCount}. Заметка $note")
+               println("${notesCount}. Заметка '$note'")
             }
          }
          println("${notesCount + 1}. Назад")
