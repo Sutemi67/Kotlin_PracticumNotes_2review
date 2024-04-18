@@ -1,7 +1,5 @@
 package screensClasses
 
-import java.util.Scanner
-
 class ScreenFunctions {
    
    fun screenMain(archives: Archives, notes: Notes) {
@@ -24,8 +22,8 @@ class ScreenFunctions {
                }
                
                in 1 until archiveCount + 1 -> {
-                  val archiveKey = archives.keyGetterArchives(command.toInt())
-                  screenOfCurrentArchive(archives, notes, archiveKey)
+                  val archiveKey = archives.getArchiveKey(command.toInt())
+                  showArchiveScreen(archives, notes, archiveKey)
                }
                
                archiveCount + 1 -> {
@@ -40,7 +38,7 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenOfCurrentArchive(archives: Archives, notes: Notes, key: String) {
+   private fun showArchiveScreen(archives: Archives, notes: Notes, key: String) {
       while (true) {
          println("0. Создать заметку")
          var notesCount = 0
@@ -61,7 +59,7 @@ class ScreenFunctions {
                
                in 1..notesCount -> {
                   val noteKey = archives.archiveName[key]?.get(command.toInt() - 1)
-                  screenWithNoteText(notes, noteKey!!)
+                  showNoteText(notes, noteKey!!)
                }
                
                notesCount + 1 -> {
@@ -76,8 +74,8 @@ class ScreenFunctions {
       }
    }
    
-   private fun screenWithNoteText(notes: Notes, key: String) {
-      println("Текст заметки:\n \n${notes.noteName[key]}\n \n0. Введите любой символ для возврата в меню")
-      Scanner(System.`in`).nextLine()
+   private fun showNoteText(notes: Notes, key: String) {
+      println("Текст заметки:\n${notes.noteName[key]}\n\nНажмите Enter для возврата в меню")
+      readln()
    }
 }

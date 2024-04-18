@@ -1,16 +1,12 @@
 package screensClasses
 
-import java.util.Scanner
-
 class Archives {
    val archiveName: MutableMap<String, MutableList<String>> = mutableMapOf()
    
    fun createArchive() {
-      
       while (true) {
          println("Введите название нового архива:")
-         val input = Scanner(System.`in`).nextLine()
-         
+         val input = readln()
          if (input == "") {
             println("Имя не может быть пустым!")
          } else {
@@ -20,8 +16,7 @@ class Archives {
       }
    }
    
-   fun keyGetterArchives(index: Int): String {
-      
+   fun getArchiveKey(index: Int): String {
       val keysArray: MutableList<String> = mutableListOf()
       for (keys in archiveName.keys) {
          keysArray.add(keys)

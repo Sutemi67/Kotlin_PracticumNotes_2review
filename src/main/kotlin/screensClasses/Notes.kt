@@ -1,20 +1,27 @@
 package screensClasses
 
-import java.util.Scanner
-
 class Notes {
    val noteName: MutableMap<String, String> = mutableMapOf()
    
    fun createNote(archives: Archives, key: String) {
-      println("Введите название заметки")
-      val input = Scanner(System.`in`).next()
-      if (input == "") {
-         println("Имя не может быть пустым!")
-      } else {
-         println("Введите текст заметки:")
-         noteName[input] = Scanner(System.`in`).nextLine()
-         archives.archiveName[key]!!.add(input)
-         return
+      while (true) {
+         println("Введите название заметки")
+         val inputName = readln()
+         if (inputName == "") {
+            println("Имя не может быть пустым!")
+         } else {
+            while (true) {
+               println("Введите текст заметки:")
+               val inputBodyText = readln()
+               if (inputBodyText != "") {
+                  noteName[inputName] = inputBodyText
+                  archives.archiveName[key]!!.add(inputName)
+                  return
+               }else{
+                  println("Заметка не может быть пустой!")
+               }
+            }
+         }
       }
    }
 }
